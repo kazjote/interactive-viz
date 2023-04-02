@@ -1,6 +1,7 @@
 interactive_viz_sources = [
   'main.vala',
   'window.vala',
+  'numeric_box_row.vala',
   'application.vala',
 ]
 

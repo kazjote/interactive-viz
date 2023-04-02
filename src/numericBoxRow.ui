@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="InteractiveVizNumericBoxRow" parent="GtkListBoxRow">
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <child>
+          <object class="GtkLabel" id="argument_name">
+            <property name="label">Argument name</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="spin_button">
+            <property name="digits">1</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

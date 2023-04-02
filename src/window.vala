@@ -21,9 +21,17 @@ namespace InteractiveViz {
     public class Window : Gtk.ApplicationWindow {
         [GtkChild]
         private unowned Gtk.Label label;
+        [GtkChild]
+        private unowned Gtk.ListBox argument_box;
+        
+        private NumericBoxRow numeric_box_row;
 
         public Window (Gtk.Application app) {
             Object (application: app);
+
+            numeric_box_row = new NumericBoxRow ();
+            argument_box.append (numeric_box_row);
+            numeric_box_row.show ();
         }
     }
 }

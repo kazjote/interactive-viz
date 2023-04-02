@@ -18,7 +18,7 @@
       <object class="GtkBox">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkListBox">
+          <object class="GtkListBox" id="argument_box">
             <child>
               <object class="GtkListBoxRow">
                 <property name="activatable">False</property>
