@@ -1,0 +1,7 @@
+data/eu.kazjote.InteractiveViz.desktop.in
+data/eu.kazjote.InteractiveViz.appdata.xml.in
+data/eu.kazjote.InteractiveViz.gschema.xml
+src/window.ui
+src/main.vala
+src/window.vala
+

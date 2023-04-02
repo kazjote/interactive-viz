@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=interactive-viz
+Exec=interactive-viz
+Icon=eu.kazjote.InteractiveViz
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true
