@@ -31,21 +31,26 @@ namespace InteractiveViz {
             this.add_action_entries (action_entries, this);
             this.set_accels_for_action ("app.quit", {"<primary>q"});
         }
+        
+        private DBusService dbus_service = new DBusService ();
 
         public override void activate () {
             base.activate ();
             var win = this.active_window;
             if (win == null) {
                 win = new InteractiveViz.Window (this);
+                dbus_service.reload_requested.connect ((filename) => {
+                    ((InteractiveViz.Window) win).draw_plot (filename);
+                });
+
+                Bus.own_name (BusType.SESSION, "eu.kazjote.InteractiveViz", BusNameOwnerFlags.NONE,
+                      on_bus_aquired,
+                      () => message ("name acquired!"),
+                      () => stderr.printf ("Could not aquire DBus name\n"));
             }
             win.present ();
-            
-            Bus.own_name (BusType.SESSION, "eu.kazjote.InteractiveViz", BusNameOwnerFlags.NONE,
-                  on_bus_aquired,
-                  () => message ("name acquired!"),
-                  () => stderr.printf ("Could not aquire DBus name\n"));
         }
-
+        
         private void on_about_action () {
             string[] authors = { "Kacper Bielecki" };
             Gtk.show_about_dialog (this.active_window,
@@ -60,9 +65,8 @@ namespace InteractiveViz {
         
         
         private void on_bus_aquired (DBusConnection conn) {
-            message ("bus acquired");
             try {
-                conn.register_object ("/eu/kazjote/InteractiveViz", new DBusService ());
+                conn.register_object ("/eu/kazjote/InteractiveViz", dbus_service);
             } catch (IOError e) {
                 stderr.printf ("Could not register service\n");
             }

@@ -20,7 +20,7 @@ namespace InteractiveViz {
     [GtkTemplate (ui = "/eu/kazjote/InteractiveViz/window.ui")]
     public class Window : Gtk.ApplicationWindow {
         [GtkChild]
-        private unowned Gtk.Label label;
+        private unowned Gtk.Picture plot;
         [GtkChild]
         private unowned Gtk.ListBox argument_box;
 
@@ -37,6 +37,10 @@ namespace InteractiveViz {
                 argument_row.show ();
                 return true;
             });
+        }
+        
+        public void draw_plot (string filename) {
+            plot.set_filename (filename);
         }
     }
 }
