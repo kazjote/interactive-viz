@@ -1,0 +1,4 @@
+{
+    "slope": {"type": "numeric"},
+    "intercept": {"type": "numeric"}
+}

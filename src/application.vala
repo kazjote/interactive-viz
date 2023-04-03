@@ -39,6 +39,11 @@ namespace InteractiveViz {
                 win = new InteractiveViz.Window (this);
             }
             win.present ();
+            
+            Bus.own_name (BusType.SESSION, "eu.kazjote.InteractiveViz", BusNameOwnerFlags.NONE,
+                  on_bus_aquired,
+                  () => message ("name acquired!"),
+                  () => stderr.printf ("Could not aquire DBus name\n"));
         }
 
         private void on_about_action () {
@@ -51,6 +56,16 @@ namespace InteractiveViz {
 
         private void on_preferences_action () {
             message ("app.preferences action activated");
+        }
+        
+        
+        private void on_bus_aquired (DBusConnection conn) {
+            message ("bus acquired");
+            try {
+                conn.register_object ("/eu/kazjote/InteractiveViz", new DBusService ());
+            } catch (IOError e) {
+                stderr.printf ("Could not register service\n");
+            }
         }
     }
 }

@@ -2,11 +2,16 @@ interactive_viz_sources = [
   'main.vala',
   'window.vala',
   'numeric_box_row.vala',
+  'interface_definition.vala',
+  'argument_row.vala',
   'application.vala',
+  'dbus_service.vala',
 ]
 
 interactive_viz_deps = [
   dependency('libadwaita-1', version: '>= 1.0'),
+  dependency('json-glib-1.0', version: '>= 1.6'),
+  dependency('gee-0.8'),
 ]
 
 gnome = import('gnome')

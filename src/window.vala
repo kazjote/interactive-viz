@@ -23,15 +23,20 @@ namespace InteractiveViz {
         private unowned Gtk.Label label;
         [GtkChild]
         private unowned Gtk.ListBox argument_box;
-        
-        private NumericBoxRow numeric_box_row;
 
         public Window (Gtk.Application app) {
             Object (application: app);
-
-            numeric_box_row = new NumericBoxRow ();
-            argument_box.append (numeric_box_row);
-            numeric_box_row.show ();
+            
+            InterfaceDefinition interface_definition = 
+                new InterfaceDefinition ("/home/kazjote/projects/interactive-viz/viz-tool/interactive-viz/example-argument-definition.json");
+                
+            var argument_rows = interface_definition.build ();
+            
+            argument_rows.foreach ((argument_row) => {
+                argument_box.append (argument_row);
+                argument_row.show ();
+                return true;
+            });
         }
     }
 }
