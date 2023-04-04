@@ -40,6 +40,7 @@ namespace InteractiveViz {
         }
         
         public void draw_plot (string filename) {
+            message ("Will draw plot from file " + filename);
             plot.set_filename (filename);
         }
     }
