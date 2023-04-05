@@ -6,5 +6,5 @@ public class DBusService : Object {
     
     public signal void reload_requested (string filename);
     
-    public signal void arguments_changed ();
+    public signal void arguments_changed (string json);
 }

@@ -38,15 +38,26 @@ namespace InteractiveViz {
             base.activate ();
             var win = this.active_window;
             if (win == null) {
-                win = new InteractiveViz.Window (this);
+                var window = new InteractiveViz.Window (this);
+                win = window;
                 dbus_service.reload_requested.connect ((filename) => {
-                    ((InteractiveViz.Window) win).draw_plot (filename);
+                    window.draw_plot (filename);
+                });
+                
+                window.arguments_changed.connect (() => {
+                    var json = new Json.Node (Json.NodeType.OBJECT);
+                    json.set_object (window.get_arguments ());
+                    size_t length;
+                    var generator = new Json.Generator ();
+                    generator.set_root (json);
+                    dbus_service.arguments_changed (generator.to_data (out length));
                 });
 
                 Bus.own_name (BusType.SESSION, "eu.kazjote.InteractiveViz", BusNameOwnerFlags.NONE,
                       on_bus_aquired,
                       () => message ("name acquired!"),
                       () => stderr.printf ("Could not aquire DBus name\n"));
+                
             }
             win.present ();
         }
